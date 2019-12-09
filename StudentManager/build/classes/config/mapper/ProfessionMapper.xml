@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.mqb.dao.ProfessionDao">
+ 	<select id="findList" parameterType="Map" resultType="Profession">
+ 		select * from profession where name like #{name} limit #{offset},#{pageSize}
+ 	</select>
+ 	
+ 	<update id="add" parameterType="Profession">
+ 		insert into profession(name,pno,intro) values(#{name},#{pno},#{intro}) 
+ 	</update>
+ 	
+ 	<update id="edit" parameterType="Profession">
+ 		update profession set name=#{name},pno=#{pno},intro=#{intro} where id=#{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="Integer">
+ 		delete from profession where id in
+ 		<foreach collection="array" open="(" close=")" separator="," item="id">
+ 			#{id}
+ 		</foreach>
+ 	</delete>
+ 	
+ 	<select id="findByName" parameterType="String" resultType="Profession">
+ 		select * from profession where name=#{name}
+ 	</select>
+ 	
+ 	 <select id="findByPno" parameterType="String" resultType="Profession">
+ 		select * from profession where pno=#{pno}
+ 	</select>
+ 	
+ 	<select id="getTotal" parameterType="Map" resultType="Integer">
+ 		select count(id) from profession where name like #{name}
+ 	</select>
+ 	
+ </mapper>

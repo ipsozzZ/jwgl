@@ -1,0 +1,12 @@
+controller中request.getSession().setAttribute("admin",admin),在jsp页面如何获取admin.name
+			${requestScope.admin}
+			
+			
+			
+			
+teacher_list中分类查询未实现，因为radio的checked属性问题
+
+
+
+
+序列化表单获取时间

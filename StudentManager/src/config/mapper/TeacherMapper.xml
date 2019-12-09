@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqb.dao.TeacherDao">
+	
+	<select id="findList" parameterType="Map" resultType="Teacher">
+		select * from teacher where name like #{name} limit #{offset},#{pageSize}
+	</select>
+	
+	<select id="findByJno" parameterType="String" resultType="Teacher">
+		select * from teacher where jno=#{jno}
+	</select>
+	
+	<insert id="add" parameterType="Teacher">
+		insert into teacher(jno,profession,phone,pass,email,name,intro) 
+		values(#{jno},#{profession},#{phone},#{pass},#{email},#{name},#{intro})
+	</insert>
+	
+	<update id="edit" parameterType="Teacher">
+		update teacher set profession=#{profession},phone=#{phone},pass=#{pass},
+			email=#{email},name=#{name},intro=#{intro} where jno=#{jno}
+	</update>
+	
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(id) from teacher where name like #{name}
+	</select>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from teacher where id in
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+	
+</mapper>

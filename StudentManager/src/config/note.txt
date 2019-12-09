@@ -1,0 +1,32 @@
+1.关于ajax传送数组数据，controller接受的问题,ids[]:8
+	$.ajax({
+			type: "post",
+			url: "delete",
+			data: {ids: ids},
+			dataType:"json",
+			success: function(data){}
+			})
+			
+	public Map<String,String> delete(
+			@RequestParam(value="ids[]",required=true) Integer ids){}
+			
+
+2.sql语句
+	计算数据条数
+	select count(id) from admin where name like #{name}
+	
+	批量删除时，dao是 public int delete(Integer[] ids);
+	在map.xml中写sql时,foreach里不能时#{ids}
+	<delete id="delete" parameterType="Integer">
+ 		delete from profession where id in
+ 		<foreach collection="array" open="(" close=")" separator="," item="id">
+ 			#{id}
+ 		</foreach>
+ 	</delete>
+	
+
+3.easyui的分页控件在创建后，会自动提交rows(每页显示的数据条数)和page(页码)
+	要实现分页，要求后台返回rows(要显示的数据)和total(总记录数)
+	
+	
+	
